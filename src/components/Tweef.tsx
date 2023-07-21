@@ -4,7 +4,7 @@ import { useSession } from 'next-auth/react';
 import React, { useMemo } from 'react';
 import { addRemoveLike } from '../actions/addRemoveLike';
 
-type Props = { tweef: TweefT; refetch: () => Promise<void> };
+type Props = { tweef: TweefT; refetch: () => void };
 
 function Tweef({ tweef, refetch }: Props) {
   console.log(tweef);

@@ -4,30 +4,24 @@ import { useSession } from 'next-auth/react';
 import React, { FormEvent, useEffect, useState } from 'react';
 import { createTweef } from '../actions/createTweef';
 import Tweef from './Tweef';
+import { useQuery } from 'react-query';
+import { getTweefs } from '../queries';
+import Spinner from './Spinner';
 
 type Props = {};
 
 function Main({}: Props) {
   const { data: session } = useSession();
-  const [tweefs, setTweefs] = useState<TweefT[] | null>(null);
   const [content, setContent] = useState('');
 
-  const getTweefs = async () => {
-    try {
-      const res = await fetch('/api/tweefs', {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-      const data = await res.json();
-      setTweefs(data);
-    } catch (err) {}
-  };
-
-  useEffect(() => {
-    getTweefs();
-  }, []);
+  const {
+    isLoading,
+    data: tweefs,
+    refetch,
+  } = useQuery<TweefT[]>({
+    queryKey: 'getAllTweefs',
+    queryFn: getTweefs,
+  });
 
   const postIt = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -39,7 +33,7 @@ function Main({}: Props) {
     });
 
     setContent('');
-    await getTweefs();
+    await refetch();
   };
 
   return (
@@ -68,8 +62,12 @@ function Main({}: Props) {
         </form>
       </div>
       <div className="mt-10 flex flex-col gap-4">
-        {tweefs &&
-          tweefs.map((tweef) => <Tweef tweef={tweef} refetch={getTweefs} />)}
+        {!isLoading ? (
+          tweefs &&
+          tweefs.map((tweef) => <Tweef tweef={tweef} refetch={refetch} />)
+        ) : (
+          <Spinner />
+        )}
       </div>
     </div>
   );
