@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.image-edge-blue {
+  box-shadow: -25px 4px 5px -14px rgba(0, 0, 0, 0.05) inset;
+  -webkit-box-shadow: -25px 4px 5px -14px rgba(0, 0, 0, 0.05) inset;
+  -moz-box-shadow: -25px 4px 5px -14px rgba(0, 0, 0, 0.05) inset;
+}
