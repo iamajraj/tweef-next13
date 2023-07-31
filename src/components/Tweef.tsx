@@ -80,7 +80,7 @@ function Tweef({ tweef, refetch }: Props) {
           {tweef.like.length}
         </button>{' '}
         <button
-          onClick={() => handleLike(data?.user.id)}
+          // onClick={() => handleLike(data?.user.id)}
           className={`text-sm flex items-center gap-2 cursor-pointer text-gray-400`}
         >
           <svg
