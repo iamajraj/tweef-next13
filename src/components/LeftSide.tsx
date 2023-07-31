@@ -22,7 +22,7 @@ function LeftSide({ ...props }: Props) {
   return (
     <div
       {...props}
-      className="w-1/3 h-full flex flex-col justify-between border-r pr-10 border-r-gray-800 pb-5 sticky top-0"
+      className="w-1/4 h-full flex flex-col justify-between border-r pr-10 border-r-gray-800 pb-5 sticky top-0"
     >
       <div className="mt-5">
         <img
@@ -31,7 +31,10 @@ function LeftSide({ ...props }: Props) {
           className="ml-4 w-8 rounded-full object-cover mb-10"
         />
         {OPTIONS.map((op) => (
-          <p className="py-3 px-4 text-[18px] rounded-full hover:bg-slate-200/10 cursor-pointer">
+          <p
+            key={op}
+            className="py-3 px-4 text-[18px] rounded-full hover:bg-slate-200/10 cursor-pointer"
+          >
             {op}
           </p>
         ))}
@@ -51,9 +54,10 @@ function LeftSide({ ...props }: Props) {
       >
         <div className="flex items-center gap-3">
           <img
-            src={session?.user.image ?? ''}
+            src={session?.user.image ?? undefined}
             alt="profile"
             className="w-8 rounded-full"
+            referrerPolicy="no-referrer"
           />
           <div className="">
             <p className="text-sm">{session?.user.name}</p>

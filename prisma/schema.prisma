@@ -51,10 +51,9 @@ model Tweet {
   content   String
   image     String?
   like      String[]   @default([])
-  dislikes  String[]   @default([])
   userId    String
   user      User       @relation(fields: [userId], references: [id])
-  Comments  Comments[]
+  comments  Comments[]
   createdAt DateTime   @default(now())
   updatedAt DateTime   @default(now()) @updatedAt
 }

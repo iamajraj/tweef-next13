@@ -6,6 +6,7 @@ export const GET = async () => {
     const tweefs = await prisma.tweet.findMany({
       include: {
         user: true,
+        comments: true,
       },
       orderBy: [
         {
@@ -13,9 +14,13 @@ export const GET = async () => {
         },
       ],
     });
-
     return NextResponse.json(tweefs);
   } catch (err) {
-    return NextResponse.error();
+    return NextResponse.json(
+      { message: 'internal error' },
+      {
+        status: 500,
+      }
+    );
   }
 };

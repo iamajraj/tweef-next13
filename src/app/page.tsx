@@ -1,15 +1,12 @@
 'use client';
 
-import LeftSide from '../components/LeftSide';
+import Layout from '../components/Layout';
 import Main from '../components/Main';
-import RightSide from '../components/RightSide';
 
 export default function Home() {
   return (
-    <main className="flex h-screen max-w-7xl mx-auto">
-      <LeftSide />
+    <Layout>
       <Main />
-      <RightSide />
-    </main>
+    </Layout>
   );
 }

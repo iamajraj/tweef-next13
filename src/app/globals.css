@@ -7,3 +7,7 @@
   -webkit-box-shadow: -25px 4px 5px -14px rgba(0, 0, 0, 0.05) inset;
   -moz-box-shadow: -25px 4px 5px -14px rgba(0, 0, 0, 0.05) inset;
 }
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}

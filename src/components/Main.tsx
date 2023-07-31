@@ -1,7 +1,7 @@
 'use client';
 
 import { useSession } from 'next-auth/react';
-import React, { FormEvent, useEffect, useState } from 'react';
+import React, { FormEvent, useState } from 'react';
 import { createTweef } from '../actions/createTweef';
 import Tweef from './Tweef';
 import { useQuery } from 'react-query';
@@ -21,6 +21,9 @@ function Main({}: Props) {
   } = useQuery<TweefT[]>({
     queryKey: 'getAllTweefs',
     queryFn: getTweefs,
+    useErrorBoundary(error, query) {
+      return (error as any).response?.status >= 500;
+    },
   });
 
   const postIt = async (e: FormEvent<HTMLFormElement>) => {
@@ -37,11 +40,11 @@ function Main({}: Props) {
   };
 
   return (
-    <div className="w-1/2 p-4 flex flex-col">
-      <h2 className="font-bold mb-4">Home</h2>
-      <div className="flex gap-3 border-b border-gray-600 pb-4">
+    <div className="w-1/2 py-4 flex flex-col">
+      <h2 className="font-bold pb-6 px-4 border-b border-b-gray-800">Home</h2>
+      <div className="flex gap-3 border-b border-gray-800 pb-4 px-4 mt-5">
         <img
-          src={session?.user.image ?? ''}
+          src={session?.user.image ?? undefined}
           alt="logo"
           className="w-10 h-10 rounded-full shrink-0"
         />
@@ -61,10 +64,15 @@ function Main({}: Props) {
           </button>
         </form>
       </div>
-      <div className="mt-10 flex flex-col gap-4">
+      <div className="mt-5 flex flex-col gap-4  overflow-y-scroll no-scrollbar">
         {!isLoading ? (
-          tweefs &&
-          tweefs.map((tweef) => <Tweef tweef={tweef} refetch={refetch} />)
+          Array.isArray(tweefs) ? (
+            tweefs.map((tweef) => (
+              <Tweef key={tweef.id} tweef={tweef} refetch={refetch} />
+            ))
+          ) : (
+            <p className="text-center">Internal server error</p>
+          )
         ) : (
           <Spinner />
         )}

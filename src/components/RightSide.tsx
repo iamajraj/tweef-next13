@@ -38,7 +38,10 @@ function RightSide({ ...props }: Props) {
         <h2 className="px-4 font-bold text-lg">Trends for you</h2>
         <div className="mt-4 flex flex-col">
           {TRENDS.map((tr) => (
-            <div className="py-3 flex flex-col hover:bg-[#1D1F23] cursor-pointer px-4">
+            <div
+              key={tr}
+              className="py-3 flex flex-col hover:bg-[#1D1F23] cursor-pointer px-4"
+            >
               <span className="text-[12px] text-gray-400">Tech</span>
               <p className="text-[15px] font-bold">{tr}</p>
             </div>

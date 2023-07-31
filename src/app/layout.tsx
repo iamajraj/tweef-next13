@@ -18,7 +18,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="dark">
-      <body className={cn(inter.className, 'bg-[#000000] text-white relative')}>
+      <body
+        className={cn(
+          inter.className,
+          'bg-[#000000] text-white relative, overflow-hidden'
+        )}
+      >
         <Provider>{children}</Provider>
       </body>
     </html>

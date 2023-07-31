@@ -5,5 +5,5 @@ export const getTweefs = async () => {
       'Content-Type': 'application/json',
     },
   });
-  return await res.json();
+  return res.json();
 };
